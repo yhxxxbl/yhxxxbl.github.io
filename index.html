@@ -14,6 +14,13 @@
 
 
 
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-flash.min.css?v=1.0.2" rel="stylesheet">
+
 
 
 
@@ -53,16 +60,16 @@
 <link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
 
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=5.1.4">
 
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
 
 
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
 
 
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+  <link rel="mask-icon" href="/images/favicon.ico?v=5.1.4" color="#222">
 
 
 
@@ -98,13 +105,13 @@
     root: '/',
     scheme: 'Muse',
     version: '5.1.4',
-    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     duoshuo: {
       userId: '0',
-      author: '博主'
+      author: 'Author'
     },
     algolia: {
       applicationID: '',
@@ -185,7 +192,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            首页
+            Home
           </a>
         </li>
       
@@ -195,7 +202,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
             
-            分类
+            Categories
           </a>
         </li>
       
@@ -215,7 +222,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
             
-            关于
+            About
           </a>
         </li>
       
@@ -225,7 +232,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
             
-            公益404
+            Commonweal 404
           </a>
         </li>
       
@@ -262,12 +269,12 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/21/ObjectClass/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/21/ObjectClass/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YuanHao">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="image" content="/images/avatar.png">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -281,7 +288,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/08/21/ObjectClass/" itemprop="url">Object类的常用方法</a></h1>
+                <a class="post-title-link" href="/2018/01/21/ObjectClass/" itemprop="url">Object类的常用方法</a></h1>
         
 
         <div class="post-meta">
@@ -291,10 +298,10 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Posted on</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-21T17:02:41+08:00">
-                2017-08-21
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-01-21T17:02:41+08:00">
+                2018-01-21
               </time>
             
 
@@ -312,7 +319,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">分类于</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -337,6 +344,37 @@
           
 
           
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  1,385
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  7
+                </span>
+              
+            </div>
+          
 
           
 
@@ -355,17 +393,18 @@
       
         
           <h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><p>Java语言是一种单继承结构语言，Java中所有的类都有一个共同的祖先。这个祖先就是Object类。</p>
-<p>如果一个类没有用extends明确指出继承于某个类，那么它默认继承Object类</p>
-<p>Class Object is the root of the class hierarchy. Every class has Object as a superclass. All objects, including arrays, implement the methods of this class.</p>
-<blockquote>
-<p>官方文档页：<a href="https://docs.oracle.com/javase/8/docs/api/" target="_blank" rel="noopener">https://docs.oracle.com/javase/8/docs/api/</a>  （Java8）</p>
-</blockquote>
-<hr>
-<h2 id="面试中有关的问题在文章末尾"><a href="#面试中有关的问题在文章末尾" class="headerlink" title="面试中有关的问题在文章末尾"></a>面试中有关的问题在文章末尾</h2><hr>
+<p>如果一个类没有用extends明确指出继承于某个类，那么它默认继承Object类<br>
+		  
+		  
+        <div class="out-img-topic">
+         <img src=/images/view1.jpg class="img-topic" />
+       </div>
+        
+
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/08/21/ObjectClass/#more" rel="contents">
-              阅读全文 &raquo;
+            <a class="btn" href="/2018/01/21/ObjectClass/#more" rel="contents">
+              Read more &raquo;
             </a>
           </div>
           <!--/noindex-->
@@ -438,7 +477,7 @@
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <img class="site-author-image" itemprop="image"
-                src="/images/avatar.jpg"
+                src="/images/avatar.png"
                 alt="YuanHao" />
             
               <p class="site-author-name" itemprop="name">YuanHao</p>
@@ -453,7 +492,7 @@
                 <a href="/archives">
               
                   <span class="site-state-item-count">1</span>
-                  <span class="site-state-item-name">日志</span>
+                  <span class="site-state-item-name">posts</span>
                 </a>
               </div>
             
@@ -462,10 +501,10 @@
               
               
               <div class="site-state-item site-state-categories">
-                
+                <a href="/categories/index.html">
                   <span class="site-state-item-count">1</span>
-                  <span class="site-state-item-name">分类</span>
-                
+                  <span class="site-state-item-name">categories</span>
+                </a>
               </div>
             
 
@@ -475,7 +514,7 @@
               <div class="site-state-item site-state-tags">
                 
                   <span class="site-state-item-count">3</span>
-                  <span class="site-state-item-name">标签</span>
+                  <span class="site-state-item-name">tags</span>
                 
               </div>
             
