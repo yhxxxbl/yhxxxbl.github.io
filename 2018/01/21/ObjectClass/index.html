@@ -86,19 +86,19 @@
 
 
 
-<meta name="description" content="概念Java语言是一种单继承结构语言，Java中所有的类都有一个共同的祖先。这个祖先就是Object类。 如果一个类没有用extends明确指出继承于某个类，那么它默认继承Object类">
+<meta name="description" content="概念   Java语言是一种单继承结构语言，Java中所有的类都有一个共同的祖先。这个祖先就是Object类。    如果一个类没有用extends明确指出继承于某个类，那么它默认继承Object类">
 <meta name="keywords" content="Java,Object类,面试">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Object类的常用方法">
 <meta property="og:url" content="http://yoursite.com/2018/01/21/ObjectClass/index.html">
 <meta property="og:site_name" content="Yuan&#39;s Notes">
-<meta property="og:description" content="概念Java语言是一种单继承结构语言，Java中所有的类都有一个共同的祖先。这个祖先就是Object类。 如果一个类没有用extends明确指出继承于某个类，那么它默认继承Object类">
+<meta property="og:description" content="概念   Java语言是一种单继承结构语言，Java中所有的类都有一个共同的祖先。这个祖先就是Object类。    如果一个类没有用extends明确指出继承于某个类，那么它默认继承Object类">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1467700-f5594aad42618ddb?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-08-22T09:00:40.086Z">
+<meta property="og:updated_time" content="2018-08-23T00:30:54.701Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Object类的常用方法">
-<meta name="twitter:description" content="概念Java语言是一种单继承结构语言，Java中所有的类都有一个共同的祖先。这个祖先就是Object类。 如果一个类没有用extends明确指出继承于某个类，那么它默认继承Object类">
+<meta name="twitter:description" content="概念   Java语言是一种单继承结构语言，Java中所有的类都有一个共同的祖先。这个祖先就是Object类。    如果一个类没有用extends明确指出继承于某个类，那么它默认继承Object类">
 <meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1467700-f5594aad42618ddb?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
@@ -109,7 +109,7 @@
     root: '/',
     scheme: 'Muse',
     version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
     fancybox: true,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
@@ -205,6 +205,16 @@
             
               <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
             
+            离
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
             归
           </a>
         </li>
@@ -213,7 +223,7 @@
         <li class="menu-item menu-item-something">
           <a href="/something/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
             
             趣
           </a>
@@ -226,16 +236,6 @@
               <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
             
             余
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-commonweal">
-          <a href="/404/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
-            
-            益
           </a>
         </li>
       
@@ -275,7 +275,7 @@
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/21/ObjectClass/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="YuanHao">
+      <meta itemprop="name" content="🍍">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.png">
     </span>
@@ -402,8 +402,13 @@
       
 
       
-        <h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><p>Java语言是一种单继承结构语言，Java中所有的类都有一个共同的祖先。这个祖先就是Object类。</p>
-<p>如果一个类没有用extends明确指出继承于某个类，那么它默认继承Object类<br><a id="more"></a></p>
+        <h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><ul>
+<li><p><i class="fa fa-pencil"></i>  Java语言是一种单继承结构语言，Java中所有的类都有一个共同的祖先。这个祖先就是Object类。</p>
+</li>
+<li><p><i class="fa fa-pencil"></i>  如果一个类没有用extends明确指出继承于某个类，那么它默认继承Object类</p>
+<a id="more"></a>
+</li>
+</ul>
 <p>Class Object is the root of the class hierarchy. Every class has Object as a superclass. All objects, including arrays, implement the methods of this class.</p>
 <blockquote>
 <p>官方文档页：<a href="https://docs.oracle.com/javase/8/docs/api/" target="_blank" rel="noopener">https://docs.oracle.com/javase/8/docs/api/</a>  （Java8）</p>
@@ -553,6 +558,8 @@
 
   <aside id="sidebar" class="sidebar">
     
+      <div id="sidebar-dimmer"></div>
+    
     <div class="sidebar-inner">
 
       
@@ -574,9 +581,9 @@
             
               <img class="site-author-image" itemprop="image"
                 src="/images/avatar.png"
-                alt="YuanHao" />
+                alt="🍍" />
             
-              <p class="site-author-name" itemprop="name">YuanHao</p>
+              <p class="site-author-name" itemprop="name">🍍</p>
               <p class="site-description motion-element" itemprop="description">I have everything that I need right in this moment.</p>
           </div>
 
@@ -585,7 +592,7 @@
             
               <div class="site-state-item site-state-posts">
               
-                <a href="/archives">
+                <a href="/archives/">
               
                   <span class="site-state-item-count">1</span>
                   <span class="site-state-item-name">日志</span>
@@ -634,6 +641,12 @@
                         <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
                   </span>
                 
+                  <span class="links-of-author-item">
+                    <a href="https://music.163.com/#/user/home?id=319208872" target="_blank" title="网易云音乐">
+                      
+                        <i class="fa fa-fw fa-music"></i>网易云音乐</a>
+                  </span>
+                
             </div>
           
 
@@ -641,6 +654,36 @@
           
 
           
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                好玩儿的东西
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.oschina.net/" title="开源中国" target="_blank">开源中国</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.dgtle.com/" title="数字尾巴" target="_blank">数字尾巴</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.ifanr.com/" title="爱范儿" target="_blank">爱范儿</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://forum.cnsec.org/" title="暗组" target="_blank">暗组</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.zealer.com/" title="ZEALER" target="_blank">ZEALER</a>
+                  </li>
+                
+              </ul>
+            </div>
           
 
           
@@ -682,7 +725,7 @@
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">YuanHao</span>
+  <span class="author" itemprop="copyrightHolder">🍍</span>
 
   
 </div>
