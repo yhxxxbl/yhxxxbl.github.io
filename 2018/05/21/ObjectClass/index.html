@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-flash.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/favicon.ico?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java,面试,Object类," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="概念   Java语言是一种单继承结构语言，Java中所有的类都有一个共同的祖先。这个祖先就是Object类。    如果一个类没有用extends明确指出继承于某个类，那么它默认继承Object类">
+<meta name="keywords" content="Java,面试,Object类">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Object类的常用方法">
+<meta property="og:url" content="http://yoursite.com/2018/05/21/ObjectClass/index.html">
+<meta property="og:site_name" content="Notes">
+<meta property="og:description" content="概念   Java语言是一种单继承结构语言，Java中所有的类都有一个共同的祖先。这个祖先就是Object类。    如果一个类没有用extends明确指出继承于某个类，那么它默认继承Object类">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1467700-f5594aad42618ddb?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-08-30T05:41:35.952Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Object类的常用方法">
+<meta name="twitter:description" content="概念   Java语言是一种单继承结构语言，Java中所有的类都有一个共同的祖先。这个祖先就是Object类。    如果一个类没有用extends明确指出继承于某个类，那么它默认继承Object类">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1467700-f5594aad42618ddb?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/05/21/ObjectClass/"/>
+
+
+
+
+
+  <title>Object类的常用方法 | Notes</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Notes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            启
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            离
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-something">
+          <a href="/something/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            趣
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            余
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/21/ObjectClass/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="🍍">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Object类的常用方法</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-21T17:02:41+08:00">
+                2018-05-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java基础/" itemprop="url" rel="index">
+                    <span itemprop="name">Java基础</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/05/21/ObjectClass/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2018/05/21/ObjectClass/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,412
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  7
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><ul>
+<li><p><i class="fa fa-pencil"></i>  Java语言是一种单继承结构语言，Java中所有的类都有一个共同的祖先。这个祖先就是Object类。</p>
+</li>
+<li><p><i class="fa fa-pencil"></i>  如果一个类没有用extends明确指出继承于某个类，那么它默认继承Object类</p>
+<a id="more"></a>
+</li>
+</ul>
+<p>Class Object is the root of the class hierarchy. Every class has Object as a superclass. All objects, including arrays, implement the methods of this class.</p>
+<blockquote>
+<p>官方文档页：<a href="https://docs.oracle.com/javase/8/docs/api/" target="_blank" rel="noopener">https://docs.oracle.com/javase/8/docs/api/</a>  （Java8）</p>
+</blockquote>
+<hr>
+<h2 id="更新：面试中有关的问题在文章末尾"><a href="#更新：面试中有关的问题在文章末尾" class="headerlink" title="更新：面试中有关的问题在文章末尾"></a>更新：面试中有关的问题在文章末尾</h2><hr>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p><img src="http://upload-images.jianshu.io/upload_images/1467700-f5594aad42618ddb?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p>Object类有12个成员方法，按照用途可以分为以下几种</p>
+<p>1，构造函数 </p>
+<p>2，hashCode和equale函数用来判断对象是否相同, </p>
+<p>3，wait(),wait(long),wait(long,int),notify(),notifyAll() </p>
+<p>4，toString()和getClass, </p>
+<p>5，clone() </p>
+<p>6，finalize()用于在垃圾回收</p>
+<hr>
+<h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1><h3 id="1-getClass-public-final-Class-getClass"><a href="#1-getClass-public-final-Class-getClass" class="headerlink" title="1.getClass -public final Class getClass()"></a>1.getClass -public final Class getClass()</h3><p>Returns the runtime class of this Object. The returned Class object is the object that is locked by static synchronized methods of the represented class.</p>
+<p>final方法，用于获得运行时的类型。</p>
+<h3 id="2-hashCode-public-int-hashCode"><a href="#2-hashCode-public-int-hashCode" class="headerlink" title="2.hashCode -public int hashCode()"></a>2.hashCode -public int hashCode()</h3><p>Returns a hash code value for the object. This method is supported for the benefit of hash tables such as those provided by <a href="https://docs.oracle.com/javase/8/docs/api/java/util/HashMap.html" target="_blank" rel="noopener">HashMap</a>.</p>
+<p>Returns: a hash code value for this object.</p>
+<p>该方法用来返回其所在对象的物理地址（哈希码值），常会和equals方法同时重写（<a href="https://zhidao.baidu.com/question/646965569075124765.html" target="_blank" rel="noopener">Why？</a>），确保相等的两个对象拥有相等的hashCode。</p>
+<h3 id="3-equals-public-boolean-equals-Object-obj"><a href="#3-equals-public-boolean-equals-Object-obj" class="headerlink" title="3.equals -public boolean equals(Object obj)"></a>3.equals -public boolean equals(Object obj)</h3><p>Indicates whether some other object is “equal to” this one.</p>
+<p>Returns: true if this object is the same as the obj argument; false otherwise.</p>
+<p><strong>equals用来比较两个对象的内容是否相等</strong></p>
+<p><strong>默认情况下</strong>(继承自Object类)，equals和==是<strong>一样的，除非被覆写(override)了。</strong></p>
+<p><strong>equals方法在Object类中实现如下：</strong></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> boolean equals(<span class="type">Object</span> obj) &#123;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span>(this==obj);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>很明显是对两个对象的地址值进行的比较（即比较引用是否相同）。但是我们知道，String 、Math、Integer、Double等这些封装类在使用equals()方法时，已经覆盖了object类的equals()方法，要注意区分。</p>
+<p><strong>equals方法在String中实现如下：</strong></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> boolean equals(<span class="type">Object</span> anObject) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (this == anObject) &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (anObject instanceof <span class="type">String</span>) &#123;</span><br><span class="line"></span><br><span class="line">        <span class="type">String</span> anotherString = (<span class="type">String</span>)anObject;</span><br><span class="line"></span><br><span class="line">        int n = <span class="built_in">count</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (n == anotherString.<span class="built_in">count</span>) &#123;</span><br><span class="line"></span><br><span class="line">            char v1[] = value;</span><br><span class="line"></span><br><span class="line">            char v2[] = anotherString.value;</span><br><span class="line"></span><br><span class="line">            int i = offset;</span><br><span class="line"></span><br><span class="line">            int j = anotherString.offset;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">while</span> (n– != <span class="number">0</span>) &#123;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (v1[i++] != v2[j++])</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="4-clone-protected-Object-clone"><a href="#4-clone-protected-Object-clone" class="headerlink" title="4.clone -protected Object clone()"></a>4.clone -protected Object clone()</h4><p>Creates and returns a copy of this object. The precise meaning of “copy” may depend on the class of the object. </p>
+<p>Returns: a clone of this instance.</p>
+<p>clone()函数的用途是用来另存一个当前存在的对象</p>
+<p>只有实现了Cloneable接口才可以调用该方法，否则抛出CloneNotSupportedException异常。</p>
+<h4 id="5-toString-public-String-toString"><a href="#5-toString-public-String-toString" class="headerlink" title="5.toString -public String toString()"></a>5.toString -public String toString()</h4><p>Returns a string representation of the object. In general, the toString method returns a string that “textually represents” this object. The result should be a concise but informative representation that is easy for a person to read. It is recommended that all subclasses override this method.</p>
+<p>Returns: a string representation of the object.</p>
+<p>toString()方法用于返回表示对象值的字符串。例如，Point类的toString方法将返回下面这样的字符串：java.awt.Point[x=10,y=20]</p>
+<p>在子类中复写toString方法是值得被推荐的。</p>
+<h4 id="6-notify-public-final-void-notify"><a href="#6-notify-public-final-void-notify" class="headerlink" title="6.notify -public final void notify()"></a>6.notify -public final void notify()</h4><p>Wakes up a single thread that is waiting on this object’s monitor. If any threads are waiting on this object, one of them is chosen to be awakened. The choice is arbitrary and occurs at the discretion of the implementation. A thread waits on an object’s monitor by calling one of the wait methods</p>
+<p>唤醒在此对象监视器上等待的单个线程</p>
+<h4 id="7-notifyAll-public-final-void-notifyAll"><a href="#7-notifyAll-public-final-void-notifyAll" class="headerlink" title="7.notifyAll -public final void notifyAll()"></a>7.notifyAll -public final void notifyAll()</h4><p>Wakes up all threads that are waiting on this object’s monitor. A thread waits on an object’s monitor by calling one of the wait methods.</p>
+<p>唤醒在此对象监视器上等待的所有线程。</p>
+<h4 id="8-wait-public-final-void-wait-long-timeout-throws-InterruptedException"><a href="#8-wait-public-final-void-wait-long-timeout-throws-InterruptedException" class="headerlink" title="8.wait -public final void wait(long timeout)                throws InterruptedException"></a>8.wait -public final void wait(long timeout)                throws InterruptedException</h4><p>Causes the current thread to wait until either another thread invokes the notify() method or the notifyAll() method for this object, or a specified amount of time has elapsed.</p>
+<p>导致当前的线程等待，直到其他线程调用此对象的 notify() 方法或 notifyAll() 方法，或者超过指定的时间量。 </p>
+<h4 id="9-wait-public-final-void-wait-long-timeout-int-nanos-throws-InterruptedException"><a href="#9-wait-public-final-void-wait-long-timeout-int-nanos-throws-InterruptedException" class="headerlink" title="9.wait -public final void wait(long timeout, int nanos)                           throws InterruptedException"></a>9.wait -public final void wait(long timeout, int nanos)                           throws InterruptedException</h4><p>Causes the current thread to wait until another thread invokes the notify() method or the notifyAll() method for this object, or some other thread interrupts the current thread, or a certain amount of real time has elapsed.</p>
+<p>导致当前的线程等待，直到其他线程调用此对象的 notify() 方法或 notifyAll() 方法，或者其他某个线程中断当前线程，或者已超过某个实际时间量。</p>
+<h4 id="10-wait-public-final-void-wait"><a href="#10-wait-public-final-void-wait" class="headerlink" title="10.wait -public final void wait()"></a>10.wait -public final void wait()</h4><h4 id="throws-InterruptedException"><a href="#throws-InterruptedException" class="headerlink" title="throws InterruptedException"></a>throws InterruptedException</h4><p>Causes the current thread to wait until another thread invokes the notify() method or the notifyAll() method for this object. In other words, this method behaves exactly as if it simply performs the call wait(0).</p>
+<p>导致当前的线程等待，直到其他线程调用此对象的 notify() 方法或 notifyAll() 方法。</p>
+<p>See Also:</p>
+<p><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html#notify--" target="_blank" rel="noopener">notify()</a>, <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html#notifyAll--" target="_blank" rel="noopener">notifyAll()</a></p>
+<h4 id="11-finalize-protected-void-finalize"><a href="#11-finalize-protected-void-finalize" class="headerlink" title="11.finalize -protected void finalize()"></a>11.finalize -protected void finalize()</h4><h4 id="throws-Throwable"><a href="#throws-Throwable" class="headerlink" title="throws Throwable"></a>throws <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Throwable.html" target="_blank" rel="noopener">Throwable</a></h4><p>Called by the garbage collector on an object when garbage collection determines that there are no more references to the object. A subclass overrides the finalize method to dispose of system resources or to perform other cleanup.</p>
+<p>当垃圾回收器确定不存在对该对象的更多引用时，由对象的垃圾回收器调用此方法。</p>
+<p>用于释放资源，很少使用。。</p>
+<hr>
+<h1 id="面试中有关于Object类中的常见问题及延伸"><a href="#面试中有关于Object类中的常见问题及延伸" class="headerlink" title="面试中有关于Object类中的常见问题及延伸"></a>面试中有关于Object类中的常见问题及延伸</h1><p>这部分是经过了几次面试以后 我个人关于这个部分的总结</p>
+<p><strong>1，面试官经常会将”==” “.equals “ “hashcode” 放在一起考察面试者对于基础的掌握情况</strong></p>
+<blockquote>
+<p><strong>equals() 的作用是什么？</strong></p>
+<p><strong>equals() 与 == 的区别是什么</strong>？</p>
+<p><strong>hashCode() 的作用是什么</strong>？</p>
+<p><strong>hashCode() 和 equals() 之间有什么联系？</strong></p>
+</blockquote>
+<p><a href="https://www.cnblogs.com/skywang12345/p/3324958.html" target="_blank" rel="noopener">先想想再点开</a></p>
+<p>2，<strong>wait()方法与sleep()方法的区别</strong></p>
+<p><a href="https://www.cnblogs.com/loren-Yang/p/7538482.html" target="_blank" rel="noopener">是想要验证猜想吗</a></p>
+<p>3，<strong>为什么重写了equals就必须重写hashCode</strong></p>
+<p><a href="https://zhidao.baidu.com/question/646965569075124765.html" target="_blank" rel="noopener">为啥呢?</a></p>
+<p>4，<strong>关于Hashcode</strong></p>
+<p><a href="https://baijiahao.baidu.com/s?id=1561228085482413&amp;wfr=spider&amp;for=pc" target="_blank" rel="noopener">这个真不会</a></p>
+<p>5，HashMap的实现原理</p>
+<p><a href="https://www.cnblogs.com/chengxiao/p/6059914.html" target="_blank" rel="noopener">一份我觉得不错的答案</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
+          
+            <a href="/tags/面试/" rel="tag"><i class="fa fa-tag"></i> 面试</a>
+          
+            <a href="/tags/Object类/" rel="tag"><i class="fa fa-tag"></i> Object类</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/01/HashMap/" rel="prev" title="HashMap">
+                HashMap <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="🍍" />
+            
+              <p class="site-author-name" itemprop="name">🍍</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yhxxxbl" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:yhxxxbl@yeah.net" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://music.163.com/#/user/home?id=319208872" target="_blank" title="网易云音乐">
+                      
+                        <i class="fa fa-fw fa-music"></i>网易云音乐</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                好玩儿的东西
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.oschina.net/" title="开源中国" target="_blank">开源中国</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.dgtle.com/" title="数字尾巴" target="_blank">数字尾巴</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.ifanr.com/" title="爱范儿" target="_blank">爱范儿</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://forum.cnsec.org/" title="暗组" target="_blank">暗组</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.zealer.com/" title="ZEALER" target="_blank">ZEALER</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概念"><span class="nav-number">1.</span> <span class="nav-text">概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#更新：面试中有关的问题在文章末尾"><span class="nav-number">1.1.</span> <span class="nav-text">更新：面试中有关的问题在文章末尾</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法"><span class="nav-number">1.2.</span> <span class="nav-text">方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分析"><span class="nav-number">2.</span> <span class="nav-text">分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-getClass-public-final-Class-getClass"><span class="nav-number">2.0.1.</span> <span class="nav-text">1.getClass -public final Class getClass()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-hashCode-public-int-hashCode"><span class="nav-number">2.0.2.</span> <span class="nav-text">2.hashCode -public int hashCode()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-equals-public-boolean-equals-Object-obj"><span class="nav-number">2.0.3.</span> <span class="nav-text">3.equals -public boolean equals(Object obj)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-clone-protected-Object-clone"><span class="nav-number">2.0.3.1.</span> <span class="nav-text">4.clone -protected Object clone()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-toString-public-String-toString"><span class="nav-number">2.0.3.2.</span> <span class="nav-text">5.toString -public String toString()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-notify-public-final-void-notify"><span class="nav-number">2.0.3.3.</span> <span class="nav-text">6.notify -public final void notify()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-notifyAll-public-final-void-notifyAll"><span class="nav-number">2.0.3.4.</span> <span class="nav-text">7.notifyAll -public final void notifyAll()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-wait-public-final-void-wait-long-timeout-throws-InterruptedException"><span class="nav-number">2.0.3.5.</span> <span class="nav-text">8.wait -public final void wait(long timeout)                throws InterruptedException</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-wait-public-final-void-wait-long-timeout-int-nanos-throws-InterruptedException"><span class="nav-number">2.0.3.6.</span> <span class="nav-text">9.wait -public final void wait(long timeout, int nanos)                           throws InterruptedException</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-wait-public-final-void-wait"><span class="nav-number">2.0.3.7.</span> <span class="nav-text">10.wait -public final void wait()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#throws-InterruptedException"><span class="nav-number">2.0.3.8.</span> <span class="nav-text">throws InterruptedException</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#11-finalize-protected-void-finalize"><span class="nav-number">2.0.3.9.</span> <span class="nav-text">11.finalize -protected void finalize()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#throws-Throwable"><span class="nav-number">2.0.3.10.</span> <span class="nav-text">throws Throwable</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#面试中有关于Object类中的常见问题及延伸"><span class="nav-number">3.</span> <span class="nav-text">面试中有关于Object类中的常见问题及延伸</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">🍍</span>
+
+  
+</div>
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
