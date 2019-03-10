@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-flash.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/favicon.ico?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Android," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="取材于在公司时我写的说明文档，将一些与公司代码相关的部分剔除，如果涉及到侵权问题请联系我删除">
+<meta name="keywords" content="Android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="渐进式组件化框架CC的使用经验">
+<meta property="og:url" content="http://yoursite.com/2018/12/15/zujianhua/index.html">
+<meta property="og:site_name" content="Notes">
+<meta property="og:description" content="取材于在公司时我写的说明文档，将一些与公司代码相关的部分剔除，如果涉及到侵权问题请联系我删除">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1467700-de09ecf60c998d6e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1467700-48333dc400f67ac7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1467700-76010d64f6f1d5e0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-03-10T02:39:29.339Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="渐进式组件化框架CC的使用经验">
+<meta name="twitter:description" content="取材于在公司时我写的说明文档，将一些与公司代码相关的部分剔除，如果涉及到侵权问题请联系我删除">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/1467700-de09ecf60c998d6e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/12/15/zujianhua/"/>
+
+
+
+
+
+  <title>渐进式组件化框架CC的使用经验 | Notes</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Notes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            启
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            离
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-something">
+          <a href="/something/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            趣
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            余
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/15/zujianhua/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="🍍">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">渐进式组件化框架CC的使用经验</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-15T14:12:24+08:00">
+                2018-12-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/12/15/zujianhua/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2018/12/15/zujianhua/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3,567
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  15
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>取材于在公司时我写的说明文档，将一些与公司代码相关的部分剔除，如果涉及到侵权问题请联系我删除</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="官网地址：https-luckybilly-github-io-CC-website"><a href="#官网地址：https-luckybilly-github-io-CC-website" class="headerlink" title="官网地址：https://luckybilly.github.io/CC-website"></a>官网地址：<a href="https://luckybilly.github.io/CC-website" target="_blank" rel="noopener">https://luckybilly.github.io/CC-website</a></h2><h2 id="注意注意注意！-为了解决跨组件的sp共享问题"><a href="#注意注意注意！-为了解决跨组件的sp共享问题" class="headerlink" title="注意注意注意！ 为了解决跨组件的sp共享问题"></a>注意注意注意！ 为了解决跨组件的sp共享问题</h2><blockquote>
+<p>在涉及跨组件的sp存取时 context需调用FsContextUtils.createPackageContext(Context context);<br>该方法中封装了 context.createPackageContext(PACKAGENAME,Context.CONTEXT_IGNORE_SECURITY)<br>修改方法参见<a href="#上下文修改示例">context示例</a> </p>
+</blockquote>
+<h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><ul>
+<li><ol>
+<li>在local.properties中添加配置（将需要独立编译的组件设置为true）<blockquote>
+<p>通过读取local.properties来判定当前是否需要将组建独立编译 如xxx=true</p>
+</blockquote>
+</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>执行命令行将app分别打包安装   </li>
+</ol>
+</li>
+<li><ol start="3">
+<li>在主App进行登录操作，然后再打开其他组件 App进行本模块业务的开发调试<blockquote>
+<p>需要跨组件调用时请使用CC进行调用<br>修改方法参见<a href="#三-基本用法">跨组件改造方法</a><br><strong><em>component由被跳转方提供，比如feed往crm跳，那么由crm提供component供feed跳转</em></strong></p>
+</blockquote>
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="一-准备"><a href="#一-准备" class="headerlink" title="一-准备"></a>一-准备</h2><h3 id="1-1-组件化"><a href="#1-1-组件化" class="headerlink" title="1.1 组件化"></a>1.1 组件化</h3><blockquote>
+<p>简单来说，就是将一个APP的业务功能进行拆分，每一个功能都是一个单独的工程，每个工程都能独立运行，且只包含自己的业务，我们姑且叫这个独立的功能为一个组件服务，最后整个APP由多个拆分出的组件集成而成。</p>
+</blockquote>
+<h3 id="1-2-组件化解决了哪些痛点"><a href="#1-2-组件化解决了哪些痛点" class="headerlink" title="1.2 组件化解决了哪些痛点"></a>1.2 组件化解决了哪些痛点</h3><blockquote>
+<ul>
+<li>提高工程编译速度<br>进行组件化拆分后，每个业务或者功能都是一个单独的工程，这个单独的工程可以独立编译运行.。</li>
+<li>业务模块解耦<br>业务组件之间不能相互引用，每个组件都把对应的业务功能收敛在一个工程里，彼此互不打扰。</li>
+<li>提供单独的组件服务</li>
+</ul>
+</blockquote>
+<h3 id="1-2-框架CC"><a href="#1-2-框架CC" class="headerlink" title="1.2 框架CC"></a>1.2 框架CC</h3><ul>
+<li><p>当ComponentMananger接收到组件的调用请求时，查找当前app内组件清单中是否含有当前需要调用的组件</p>
+</li>
+<li><p>有： 执行App内部CC调用的流程<br><img src="https://upload-images.jianshu.io/upload_images/1467700-de09ecf60c998d6e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+</li>
+<li>没有：执行App之间CC调用的流程<br><img src="https://upload-images.jianshu.io/upload_images/1467700-48333dc400f67ac7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></li>
+</ul>
+<h2 id="二-独立编译CRM，都做了哪些工作"><a href="#二-独立编译CRM，都做了哪些工作" class="headerlink" title="二-独立编译CRM，都做了哪些工作?"></a>二-独立编译CRM，都做了哪些工作?</h2><h3 id="2-1-应用初始化"><a href="#2-1-应用初始化" class="headerlink" title="2.1 应用初始化"></a>2.1 应用初始化</h3><ul>
+<li>增加全量可用的fsinit模块 在该lib中进行了App的基本初始化操作</li>
+<li>新增HostFunction用于基础模块的初始化<br>并在应用的App中对HostFunction进行初始化</li>
+</ul>
+<h3 id="2-2-登录信息"><a href="#2-2-登录信息" class="headerlink" title="2.2 登录信息"></a>2.2 登录信息</h3><ul>
+<li>通过在清单文件中添加 Android:sharedUserId = “”属性来使得主App的登录cookie可以与其他组件App共享</li>
+<li>我们可以通过一个包名来得到对应的Context的全局变量，可以直接使用Context的一个静态方法：createPackageContext() 去访问另外一个app的代码和资源等信息</li>
+<li>在FSContextManager中：登录注销保存的context由HostFunction.getInstance().getApp()获取<br>####2.2.1  Android:sharedUserId = “ “属性<blockquote>
+<p>在需要共享资源的项目的每个AndroidMainfest.xml中添加shareuserId的标签。<br>Android给每个APK进程分配一个单独的空间,manifest中的userid就是对应一个分配的Linux用户ID，并且为它创建一个沙箱，以防止影响其他应用程序（或者其他应用程序影响它）。用户ID 在应用程序安装到设备中时被分配，并且在这个设备中保持它的永久性。</p>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<p>通常，不同的APK会具有不同的userId，因此运行时属于不同的进程中，而不同进程中的资源是不共享的，保障了程序运行的稳定。<br>通过SharedUserId,拥有相同UserId的多个Apk可以配置成运行在同一个进程中.所以默认就是可以互相访问任意数据. </p>
+</blockquote>
+<blockquote>
+<p><strong><em>但是</em></strong><br>因为sharedUserId属性的添加引出的问题：sharedUserId属性不同的应用不能覆盖安装<br>所以采用gradle修改清单文件的方式在App整体编译时(local文件中没有设置moduleName=true时)移除sharedUserId属性<br>清单文件合并后的地址：<br>fs-android\host\host_main\build\intermediates\manifests\full\online\debug\AndroidManifest.xml</p>
+</blockquote>
+<h3 id="2-3-如何独立运行APP"><a href="#2-3-如何独立运行APP" class="headerlink" title="2.3 如何独立运行APP"></a>2.3 如何独立运行APP</h3><ul>
+<li>确保主app/build.gradle中是使用addComponent(参照)来添加对组件module的依赖</li>
+<li>在local.properties中增加一行配置module_name=true 例如：xxx=ture 表示主工程打包时将排除xxx组件<blockquote>
+<p><strong>注意</strong> ： 框架在接收到组件调用请求时，优先查看当前App内是否有本次CC调用指定的组件(参照3.5.1)</p>
+<ul>
+<li>有： 执行App内部组件调用流程</li>
+<li>没有：检查当前app是否开启跨app调用功能：</li>
+<li><ul>
+<li>未开启： 返回-5的状态码，代表未找到指定的组件</li>
+</ul>
+</li>
+<li><ul>
+<li>已开启： 执行跨App组件调用流程</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<h2 id="三-基本用法"><a href="#三-基本用法" class="headerlink" title="三-基本用法"></a>三-基本用法</h2><blockquote>
+<p>简而言之：我们通过CC将业务请求转发，在被调用的组件中处理请求</p>
+</blockquote>
+<blockquote>
+<p>eg:在XXX组件中调用其他组件的页面    </p>
+<ul>
+<li>步骤1：添加引用</li>
+<li>步骤2:在XXX组件中原来调用startActivity(或发送请求的地方进行调用　</li>
+<li>步骤3:在其他组件中实现一个继承自IComponent接口的类用来处理调用请求　(实际的context.startActivity(intent)也就是跳转工作在onCall中进行)</li>
+<li>步骤4:在主app module中添加对所有组件module的依赖</li>
+</ul>
+</blockquote>
+<p>下面介绍在Android Studio中进行集成的详细步骤</p>
+<p>3.1.1 在每个组件module(需要跨组件调用的module)的build.gradle中添加对CC框架的依赖</p>
+<blockquote>
+<p>要确保跳转的两个组件的gradle中均依赖CC</p>
+</blockquote>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">//　apply plugin: 'com.android.library'　注释掉</span></span><br><span class="line"></span><br><span class="line">添加　：　apply <span class="string">from:</span> rootProject.file(<span class="string">'cc-settings-2.gradle'</span>)</span><br><span class="line"><span class="comment">//注意：最好放在build.gradle中代码的第一行</span></span><br></pre></td></tr></table></figure>
+<p>3.1.2 修改组件module的build.gradle，将applicationId去除或者按以下方式修改，否则在集成打包时会报错<br> <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">android &#123;</span><br><span class="line">    defaultConfig &#123;</span><br><span class="line">        <span class="comment">//仅在以application方式编译时才添加applicationId属性</span></span><br><span class="line">        <span class="keyword">if</span> (project.ext.runAsApp) &#123; </span><br><span class="line">            applicationId <span class="string">'com.xxxxxx.xx'</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="3-2-在组件中创建实现IComponent接口的组件操作类-以CRM组件跳转BI页面为例"><a href="#3-2-在组件中创建实现IComponent接口的组件操作类-以CRM组件跳转BI页面为例" class="headerlink" title="3.2. 在组件中创建实现IComponent接口的组件操作类(以CRM组件跳转BI页面为例)"></a>3.2. 在组件中创建实现IComponent接口的组件操作类(以CRM组件跳转BI页面为例)</h4><ul>
+<li>创建组件(实现IComponen接口，需要保留无参构造方法)</li>
+<li>com.fxiaoke.plugin.bi.IComponent.BIHomeActivityComponent</li>
+<li><strong>请详细阅读注释</strong><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BIHomeActivityComponent</span> <span class="keyword">implements</span> <span class="title">IComponent</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * BI报表详情页参数</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String IS_FROM_DATA_CONTAINER = <span class="string">"getFromDataContainer"</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String VIEW_URL_KEY_IN_DATA_CONTAINER = <span class="string">"RptDetailWebAct_viewUrl"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">//此处return值为自己定义的标识符 确保与调用处CC.obtainBuilder("Component.BIActivityComponent")中的值保持一致</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Component.BIActivityComponent"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onCall</span><span class="params">(CC cc)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//actionName:构造CC对象时调用的setActionName 用于区分执行操作，非必需</span></span><br><span class="line">        String actionName = cc.getActionName();</span><br><span class="line">        <span class="keyword">switch</span> (actionName) &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">"MainActivity"</span>:</span><br><span class="line">                showMainActivity(cc);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">"1"</span>:</span><br><span class="line">                show1Act(cc);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">"2"</span>:</span><br><span class="line">                show2Act(cc);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="comment">//要确保任何分支case都有sendCCresult的调用！！</span></span><br><span class="line">            <span class="comment">//下方示例:</span></span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                CC.sendCCResult(cc.getCallId(), CCResult.error(<span class="string">"unsupported action name:"</span> + actionName));</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//返回值说明</span></span><br><span class="line">        <span class="comment">// false: 组件同步实现（onCall方法执行完之前会将执行结果CCResult发送给CC）</span></span><br><span class="line">        <span class="comment">// true: 组件异步实现（onCall方法执行完之后再将CCResult发送给CC，CC会持续等待组件调用CC.sendCCResult发送的结果，直至超时）</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">showMainActivity</span><span class="params">(CC cc)</span> </span>&#123;</span><br><span class="line">	</span><br><span class="line">        Context context = cc.getContext();</span><br><span class="line">        Intent intent = <span class="keyword">new</span> Intent(context, MainActivity.class);</span><br><span class="line">        <span class="keyword">if</span> (!(context <span class="keyword">instanceof</span> Activity)) &#123;</span><br><span class="line">            <span class="comment">//调用方没有设置context或app间组件跳转，context为application</span></span><br><span class="line">            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);</span><br><span class="line">        &#125;</span><br><span class="line">		<span class="comment">//实际的Activity跳转操作</span></span><br><span class="line">        context.startActivity(intent);</span><br><span class="line">        <span class="comment">//发送组件调用的结果（返回结果）</span></span><br><span class="line">        CC.sendCCResult(cc.getCallId(), CCResult.success());</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="3-3-调用组件"><a href="#3-3-调用组件" class="headerlink" title="3.3. 调用组件"></a>3.3. 调用组件</h4><ul>
+<li><p>com.fxiaoke.dataimpl.bi.BIGoPageImpl</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">goToActivityImpl</span> <span class="keyword">implements</span> <span class="title">XXXX</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    /</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">go2MainActivity</span><span class="params">(Activity act)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//在构建CC时可以通过addParam(String key, Object value)或addParams(Map&lt;String, Object&gt; params)携带参数</span></span><br><span class="line">        CCResult result1 = </span><br><span class="line">		CC.obtainBuilder(<span class="string">"Component.ActivityComponent"</span>)<span class="comment">//根据步骤2中getName方法的返回值确定Icomponent</span></span><br><span class="line">             .setActionName(<span class="string">"MainActivity"</span>)</span><br><span class="line">             .build()</span><br><span class="line">             .call();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">go2Act</span><span class="params">(Activity act)</span> </span>&#123;</span><br><span class="line">        CCResult result2 = CC.obtainBuilder(<span class="string">"Component.ActivityComponent"</span>)</span><br><span class="line">                .setActionName(<span class="string">"show2Act"</span>)</span><br><span class="line">                .build()</span><br><span class="line">                .call();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">go3Act</span><span class="params">(Activity act, String categoryID, String loadUrl)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//url可能很大，超过intent data size 限制</span></span><br><span class="line">        CCResult result3 = CC.obtainBuilder(<span class="string">"Component.ActivityComponent"</span>)</span><br><span class="line">                .setActionName(<span class="string">"show3Act"</span>)</span><br><span class="line">                .addParam(<span class="string">"loadUrl"</span>, loadUrl)</span><br><span class="line">                .build()</span><br><span class="line">                .call();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//所有的请求api</span></span><br><span class="line"><span class="comment">//同步调用，直接返回结果</span></span><br><span class="line">CCResult result = CC.obtainBuilder(<span class="string">"ComponentA"</span>).build().call();</span><br><span class="line"><span class="comment">//或 异步调用，不需要回调结果</span></span><br><span class="line">String callId = CC.obtainBuilder(<span class="string">"ComponentA"</span>).build().callAsync();</span><br><span class="line"><span class="comment">//或 异步调用，在子线程执行回调</span></span><br><span class="line">String callId = CC.obtainBuilder(<span class="string">"ComponentA"</span>).build().callAsync(<span class="keyword">new</span> IComponentCallback()&#123;...&#125;);</span><br><span class="line"><span class="comment">//或 异步调用，在主线程执行回调</span></span><br><span class="line">String callId = CC.obtainBuilder(<span class="string">"ComponentA"</span>).build().callAsyncCallbackOnMainThread(<span class="keyword">new</span> IComponentCallback()&#123;...&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>组件切换library和application方式编译时，只需在local.properties中进行设置，不需要修改app module中的依赖列表</p>
+</li>
+<li>运行主app module时会自动将【设置为以app方式编译的组件module】从依赖列表中排除<h3 id="3-4-如何实现startActivityForResult？"><a href="#3-4-如何实现startActivityForResult？" class="headerlink" title="3.4 如何实现startActivityForResult？"></a>3.4 如何实现startActivityForResult？</h3>android的startActivityForResult的设计也是为了页面传值，在CC组件化框架中，页面传值根本不需要用到startActivityForResult，直接作为异步实现的组件来处理(在原来setResult的地方调用CC.sendCCResult(callId, ccResult)，另外需要注意：按back键及返回按钮的情况也要回调结果)即可。<ul>
+<li>使用方式同普通页面跳转</li>
+<li>在onCall方法里返回true</li>
+<li>在跳转的Activity中回调信息时，不用setResult, 通过CC.sendCCResult(callId, result)来回调结果</li>
+<li>调用组件时，使用cc.callAsyncCallbackOnMainThread(new IComponentCallback(){…})来接收返回结果</li>
+</ul>
+</li>
+</ul>
+<p>如果是原来项目中存在大量的startActivityForResult代码，改造成本较大，可以用下面这种方式来保留原来的onActivityResult(…)及activity中setResult相关的代码：</p>
+<p>在原来调用startActivityForResult的地方，改用CC方式调用，将当前context传给组件<br><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">CC</span><span class="selector-class">.obtainBuilder</span>(<span class="string">"demo.ComponentA"</span>)</span><br><span class="line">	<span class="selector-class">.setContext</span>(context)</span><br><span class="line">	<span class="selector-class">.addParams</span>(<span class="string">"requestCode"</span>, requestCode)</span><br><span class="line">	<span class="selector-class">.build</span>()</span><br><span class="line">	<span class="selector-class">.callAsync</span>();</span><br></pre></td></tr></table></figure></p>
+<p>在组件的onCall(cc)方法中用startActivityForResult的方式打开Activity</p>
+<pre><code>@Override
+public boolean onCall(CC cc) {
+    Context context = cc.getContext();
+    Object code = cc.getParams().get(&quot;requestCode&quot;);
+    Intent intent = new Intent(context, ActivityA.class);
+    if (!(context instanceof Activity)) {
+        //调用方没有设置context或app间组件跳转，context为application
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    }
+    if (context instanceof Activity &amp;&amp; code != null &amp;&amp; code instanceof Integer) {
+        ((Activity)context).startActivityForResult(intent, (Integer)code);
+    } else {
+        context.startActivity(intent);
+    }
+    CC.sendCCResult(cc.getCallId(), CCResult.success());
+    return false;
+}
+</code></pre><h4 id="3-5-注意"><a href="#3-5-注意" class="headerlink" title="3.5 注意"></a>3.5 <strong>注意</strong></h4><p>3.5.1. CC会优先调用app内部的组件，只有在内部找不到对应组件且设置了<code>CC.enableRemoteCC(true)</code>时才会尝试进行跨app组件调用。<br>所以，单组件以app运行调试时，如果主app要主动与此组件进行通信，要确保主app中没有包含此组件，做法为：<br>在工程根目录的<code>local.properties</code>中添加如下配置，并重新打包运行主app<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">module_name=true #module_name为具体每个module的名称，设置为true代表以application方式编译调试，从主app中排除</span><br><span class="line">示例：crm=true</span><br></pre></td></tr></table></figure></p>
+<h3 id="排除错误"><a href="#排除错误" class="headerlink" title="排除错误"></a>排除错误</h3><ul>
+<li><strong>一些常见的Crash</strong>：<br><img src="https://upload-images.jianshu.io/upload_images/1467700-76010d64f6f1d5e0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1"><blockquote>
+<p>你定义了AndroidManifest.xml了吗：CC的流程没跑通。常见错误：CC的接口不正确&amp;&amp;相应的组件模块没有applyCC-settings   尝试依照CC的日志进行错误排查]</p>
+</blockquote>
+</li>
+</ul>
+<ul>
+<li><strong>先打开CC的日志开关</strong>，看日志中的返回码<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CC.enableDebug(<span class="keyword">true</span>);  <span class="comment">//普通调试日志，会提示一些错误信息</span></span><br><span class="line">CC.enableVerboseLog(<span class="keyword">true</span>);  <span class="comment">//组件调用的详细过程日志，用于跟踪整个调用过程</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="状态码清单"><a href="#状态码清单" class="headerlink" title="状态码清单"></a>状态码清单</h3><table>
+<thead>
+<tr>
+<th>状态码</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td style="text-align:left">CC调用成功</td>
+</tr>
+<tr>
+<td>1</td>
+<td style="text-align:left">CC调用成功，但业务逻辑判定为失败</td>
+</tr>
+<tr>
+<td>-1</td>
+<td style="text-align:left">保留状态码：默认的请求错误code</td>
+</tr>
+<tr>
+<td>-2</td>
+<td style="text-align:left">没有指定组件名称 //考虑步骤4 留意编译过程中的log cc-register是否检测到实现IComponent接口的类</td>
+</tr>
+<tr>
+<td>-3</td>
+<td style="text-align:left">result不该为null。例如：组件回调时使用 CC.sendCCResult(callId, null) 或 interceptor返回null</td>
+</tr>
+<tr>
+<td>-4</td>
+<td style="text-align:left">调用过程中出现exception //请查看logcat</td>
+</tr>
+<tr>
+<td>-5</td>
+<td style="text-align:left">指定的ComponentName没有找到 //请检查obtainBuilder中传递的name与待调用组件中的GetName返回值是否相同</td>
+</tr>
+<tr>
+<td>-6</td>
+<td style="text-align:left">context为null，获取application失败，出现这种情况可以用CC.init(application)来初始化</td>
+</tr>
+<tr>
+<td>-8</td>
+<td style="text-align:left">已取消</td>
+</tr>
+<tr>
+<td>-9</td>
+<td style="text-align:left">已超时</td>
+</tr>
+<tr>
+<td>-10</td>
+<td style="text-align:left">component.onCall(cc) return false, 未调用CC.sendCCResult(callId, ccResult)方法</td>
+</tr>
+<tr>
+<td>-11</td>
+<td style="text-align:left">跨app组件调用时对象传输出错，可能是自定义类型没有共用，//不能同时调用多个addParam</td>
+</tr>
+</tbody>
+</table>
+<h3 id="常用操作"><a href="#常用操作" class="headerlink" title="常用操作"></a>常用操作</h3><ul>
+<li><p>正式上线时禁用跨app调用组件</p>
+<p>  可在主app的application.onCreate中添加如下代码来禁用对跨app组件调用的支持</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//跨app调用支持：debug时启用，release时禁用</span></span><br><span class="line">CC.enableRemoteCC(BuildConfig.DEBUG);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>开启/关闭CC调试日志</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CC.enableDebug(trueOrFalse);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>开启/关闭CC调用执行过程的跟踪日志</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CC.enableVerboseLog(trueOrFalse);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在组件中返回CCResult</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">    <span class="comment">//设置成功的返回信息</span></span><br><span class="line">    CCResult ccResult = CCResult.success(key1, value1).addData(key2, value2);</span><br><span class="line">    <span class="comment">//设置失败的返回信息</span></span><br><span class="line">    CCResult ccResult = CCResult.error(message).addData(key, value);</span><br><span class="line">    <span class="comment">//发送结果给调用方 </span></span><br><span class="line">    CC.sendCCResult(cc.getCallId(), ccResult)</span><br><span class="line">    </span><br><span class="line">    ```    </span><br><span class="line"></span><br><span class="line">- 发起链式调用时的参数设置</span><br><span class="line"></span><br><span class="line">    以下示例代码中的callAsync方法(异步调用)可以换成call方法(同步调用)</span><br><span class="line">    </span><br><span class="line">    ```java</span><br><span class="line">    <span class="comment">//设置Context信息</span></span><br><span class="line">    CC.obtainBuilder(<span class="string">"ComponentA"</span>)...setContext(context)...build().callAsync()</span><br><span class="line">    <span class="comment">//关联Activity的生命周期，在onDestroy方法调用后自动执行cancel</span></span><br><span class="line">    CC.obtainBuilder(<span class="string">"ComponentA"</span>)...cancelOnDestroyWith(activity)...build().callAsync()</span><br><span class="line">    <span class="comment">//关联v4包Fragment的生命周期，在onDestroy方法调用后自动执行cancel</span></span><br><span class="line">    CC.obtainBuilder(<span class="string">"ComponentA"</span>)...cancelOnDestroyWith(fragment)...build().callAsync()</span><br><span class="line">    <span class="comment">//设置ActionName</span></span><br><span class="line">    CC.obtainBuilder(<span class="string">"ComponentA"</span>)...setActionName(actionName)...build().callAsync()</span><br><span class="line">    <span class="comment">//超时时间设置 </span></span><br><span class="line">    CC.obtainBuilder(<span class="string">"ComponentA"</span>)...setTimeout(<span class="number">1000</span>)...build().callAsync()</span><br><span class="line">    <span class="comment">//参数传递</span></span><br><span class="line">    CC.obtainBuilder(<span class="string">"ComponentA"</span>)...addParam(<span class="string">"name"</span>, <span class="string">"billy"</span>).addParam(<span class="string">"id"</span>, <span class="number">12345</span>)...build().callAsync()</span><br><span class="line">    <span class="comment">//添加拦截器</span></span><br><span class="line">    CC.obtainBuilder(<span class="string">"ComponentA"</span>)...addInterceptor(<span class="keyword">new</span> MyInterceptor())...build().callAsync()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>解析组件调用的结果：CCResult</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">    <span class="comment">//读取调用成功与否</span></span><br><span class="line">    ccResult.isSuccess()</span><br><span class="line">    <span class="comment">//读取调用状态码(状态码对应的说明见README中的状态码清单)</span></span><br><span class="line">    ccResult.getCode()</span><br><span class="line">    <span class="comment">//读取调用错误信息</span></span><br><span class="line">    ccResult.getErrorMessage()  </span><br><span class="line">    <span class="comment">//读取返回的附加信息</span></span><br><span class="line">    Map&lt;String, Object&gt; data = ccResult.getDataMap();</span><br><span class="line">    <span class="keyword">if</span> (data != <span class="keyword">null</span>) &#123;</span><br><span class="line">        Object value = data.get(key)   </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 根据key从map中获取内容的便捷方式（自动完成类型转换，若key不存在则返回null）：</span></span><br><span class="line">    User user = ccResult.getDataItem(key); <span class="comment">//读取CCResult.data中的item</span></span><br><span class="line">    </span><br><span class="line">    ```    </span><br><span class="line">### 上下文修改示例</span><br><span class="line"> ```java</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">(ISessionDelegate sessionDelegate)</span> </span>&#123;</span><br><span class="line">        </span><br><span class="line">        Context app = getApplicationContext();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//建议在context最开始获取处进行替换 避免漏改</span></span><br><span class="line">        app= FsContextUtils.createPackageContext(app);<span class="comment">//此处调用createPackgeContext创建带包名的context</span></span><br><span class="line"></span><br><span class="line">        Account account = getAccount();</span><br><span class="line">        String dbName = <span class="string">"contact_"</span> + account.getEnterpriseAccount() + <span class="string">"_"</span> + account.getEmployeeId() + <span class="string">".db"</span>;</span><br><span class="line">        mContactDbHelper = <span class="keyword">new</span> LoginContactDbHelper(app,dbName);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag"><i class="fa fa-tag"></i> Android</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/25/keng8.0/" rel="next" title="Android8.0适配中悬浮窗的坑">
+                <i class="fa fa-chevron-left"></i> Android8.0适配中悬浮窗的坑
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/17/handler/" rel="prev" title="Handler源码分析">
+                Handler源码分析 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="🍍" />
+            
+              <p class="site-author-name" itemprop="name">🍍</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yhxxxbl" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:yhxxxbl@yeah.net" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://music.163.com/#/user/home?id=319208872" target="_blank" title="网易云音乐">
+                      
+                        <i class="fa fa-fw fa-music"></i>网易云音乐</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                好玩儿的东西
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.oschina.net/" title="开源中国" target="_blank">开源中国</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.dgtle.com/" title="数字尾巴" target="_blank">数字尾巴</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.ifanr.com/" title="爱范儿" target="_blank">爱范儿</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://forum.cnsec.org/" title="暗组" target="_blank">暗组</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.zealer.com/" title="ZEALER" target="_blank">ZEALER</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#官网地址：https-luckybilly-github-io-CC-website"><span class="nav-number">1.</span> <span class="nav-text">官网地址：https://luckybilly.github.io/CC-website</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注意注意注意！-为了解决跨组件的sp共享问题"><span class="nav-number">2.</span> <span class="nav-text">注意注意注意！ 为了解决跨组件的sp共享问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用方法"><span class="nav-number">3.</span> <span class="nav-text">使用方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一-准备"><span class="nav-number">4.</span> <span class="nav-text">一-准备</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-组件化"><span class="nav-number">4.1.</span> <span class="nav-text">1.1 组件化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-组件化解决了哪些痛点"><span class="nav-number">4.2.</span> <span class="nav-text">1.2 组件化解决了哪些痛点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-框架CC"><span class="nav-number">4.3.</span> <span class="nav-text">1.2 框架CC</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二-独立编译CRM，都做了哪些工作"><span class="nav-number">5.</span> <span class="nav-text">二-独立编译CRM，都做了哪些工作?</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-应用初始化"><span class="nav-number">5.1.</span> <span class="nav-text">2.1 应用初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-登录信息"><span class="nav-number">5.2.</span> <span class="nav-text">2.2 登录信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-如何独立运行APP"><span class="nav-number">5.3.</span> <span class="nav-text">2.3 如何独立运行APP</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三-基本用法"><span class="nav-number">6.</span> <span class="nav-text">三-基本用法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-在组件中创建实现IComponent接口的组件操作类-以CRM组件跳转BI页面为例"><span class="nav-number">6.0.1.</span> <span class="nav-text">3.2. 在组件中创建实现IComponent接口的组件操作类(以CRM组件跳转BI页面为例)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-调用组件"><span class="nav-number">6.0.2.</span> <span class="nav-text">3.3. 调用组件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-如何实现startActivityForResult？"><span class="nav-number">6.1.</span> <span class="nav-text">3.4 如何实现startActivityForResult？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-5-注意"><span class="nav-number">6.1.1.</span> <span class="nav-text">3.5 注意</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#排除错误"><span class="nav-number">6.2.</span> <span class="nav-text">排除错误</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#状态码清单"><span class="nav-number">6.3.</span> <span class="nav-text">状态码清单</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用操作"><span class="nav-number">6.4.</span> <span class="nav-text">常用操作</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">🍍</span>
+
+  
+</div>
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
